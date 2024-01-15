@@ -30,17 +30,18 @@
       <div class="col-lg-8">
         <div class="card-body py-5 px-md-5">
 
-          <form>
+                        <form method="post" asp-controller="User" asp-action="Index">
             <!-- Email input -->
             <div class="form-outline mb-4">
-              <input type="email" id="form2Example1" class="form-control" />
-              <label class="form-label" for="form2Example1">Email address</label>
+              <label class="form-label h3" for="form2Example1">Email address</label>
+              <input type="email" name="email"  class="form-control" />
+              
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-4">
-              <input type="password" id="form2Example2" class="form-control" />
-              <label class="form-label" for="form2Example2">Password</label>
+              <label class="form-label h3" for="form2Example2">Password</label>
+              <input type="password" name="password" class="form-control" />
             </div>
 
             <!-- 2 column grid layout for inline styling -->
@@ -48,8 +49,8 @@
               <div class="col d-flex justify-content-center">
             </div>
 
-            <!-- Submit button -->
-            <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+            <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
 
           </form>
 

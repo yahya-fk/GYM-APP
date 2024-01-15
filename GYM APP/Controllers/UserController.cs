@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GYM_APP.Controllers
 {
@@ -6,11 +9,17 @@ namespace GYM_APP.Controllers
     {
         public IActionResult Index()
         {
+            Console.WriteLine("ana khedddam ");
             return View();
         }
         public IActionResult Home()
         {
             return View();
         }
+        [HttpPost]
+        public void Index(string email, string password)
+        {
+            Console.WriteLine(email, password);  
+                }
     }
 }
