@@ -23,5 +23,30 @@ namespace BLL
             User.Prenom=user.Prenom;
             return User;
         }
+
+        public bool UserLogin(int id,string email, string password)
+        {
+            UserRepos userRepos = new UserRepos();
+            User user = new User();
+             user= userRepos.Read(id);
+            if (user == null) { 
+                return false;
+            }
+            else
+            {
+                if (user.Email == email)
+                {
+                    if (user.MotPasse == password)
+                    {
+                        return true;
+                    }
+                    else { return false; }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
