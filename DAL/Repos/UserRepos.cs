@@ -21,6 +21,13 @@ namespace DAL.Repos
             MyDbContext myDbContext = new MyDbContext();
             return myDbContext.Users.Find(id);
         }
+        public User Read(string email)
+        {
+            using (MyDbContext myDbContext = new MyDbContext())
+            {
+                return myDbContext.Users.FirstOrDefault(u => u.Email == email);
+            }
+        }
         public List<User> GetAll()
         {
             MyDbContext myDbContext = new MyDbContext();

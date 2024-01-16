@@ -11,9 +11,9 @@ namespace BLL
 {
     public class UserService
     {
+        UserRepos userRepos = new UserRepos();
         public UserListVM ReadNormal(int id) { 
             var User = new UserListVM();
-            var userRepos = new UserRepos();
             var user = new User();
             user=userRepos.Read(id);
             User.Id = id;
@@ -23,24 +23,23 @@ namespace BLL
             User.Prenom=user.Prenom;
             return User;
         }
-
-        public bool UserLogin(int id,string email, string password)
+        public void UserAdd(int id, int isAdmin, string nom, string prenom, string email, string tel, string img, string motPasse) { 
+            User user = new User( id,  isAdmin,  nom,  prenom,  email,  tel,  img,  motPasse);
+            userRepos.Create(user);
+        }
+        public bool UserLogin(string email, string password)
         {
-            UserRepos userRepos = new UserRepos();
             User user = new User();
-             user= userRepos.Read(id);
+             user= userRepos.Read(email);
             if (user == null) { 
                 return false;
             }
             else
             {
-                if (user.Email == email)
+                if (user.MotPasse == password)
                 {
-                    if (user.MotPasse == password)
-                    {
                         return true;
-                    }
-                    else { return false; }
+                   
                 }
                 else
                 {

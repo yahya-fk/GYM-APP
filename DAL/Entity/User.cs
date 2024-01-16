@@ -12,7 +12,12 @@ namespace DAL.Entity
     [Table("T_User")]
     public class User
     {
+        public User()
+        {
+        }
+
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int IsAdmin { get; set; }
         public string Nom { get; set; } = string.Empty;
@@ -22,6 +27,17 @@ namespace DAL.Entity
         public string Tel { get; set; } = string.Empty;
         public string Img { get; set; } = string.Empty;
         public string MotPasse { get; set; } = string.Empty;
-        
+
+        public User(int id, int isAdmin, string nom, string prenom, string email, string tel, string img, string motPasse)
+        {
+            Id = id;
+            IsAdmin = isAdmin;
+            Nom = nom;
+            Prenom = prenom;
+            Email = email;
+            Tel = tel;
+            Img = img;
+            MotPasse = motPasse;
+        }
     }
 }
