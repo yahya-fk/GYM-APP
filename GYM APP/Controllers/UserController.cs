@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using BLL;
 
 namespace GYM_APP.Controllers
 {
@@ -20,6 +21,6 @@ namespace GYM_APP.Controllers
         public void Index(string email, string password)
         {
             Console.WriteLine(email, password);  
-                }
+        }
     }
 }
