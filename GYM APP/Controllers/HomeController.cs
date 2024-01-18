@@ -15,6 +15,8 @@ namespace GYM_APP.Controllers
 
         public IActionResult Index()
         {
+            BLL.SubscriptionService subscriptionService = new BLL.SubscriptionService();
+            subscriptionService.CheckSubStatus();
             return View();
         }
 

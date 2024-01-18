@@ -16,34 +16,38 @@ namespace BLL
             var User = new UserListVM();
             var user = new User();
             user=userRepos.Read(id);
-            User.Id = id;
+            User.Id = id.ToString();
             User.Tel = user.Tel;
             User.Nom = user.Nom;
             User.Email = user.Email;
             User.Prenom=user.Prenom;
+            User.IsAuth = user.IsAuth;
+            User.Prenom = user.Prenom;
+
             return User;
         }
-        public void UserAdd(int id, int isAdmin, string nom, string prenom, string email, string tel, string img, string motPasse) { 
-            User user = new User( id,  isAdmin,  nom,  prenom,  email,  tel,  img,  motPasse);
+        public void UserAdd(int id, int isAuth,int isAdmin, string nom, string prenom, string email, string tel, string img, string motPasse) { 
+            User user = new User( id, isAuth,  isAdmin,  nom,  prenom,  email,  tel,  img,  motPasse);
             userRepos.Create(user);
         }
-        public bool UserLogin(string email, string password)
+        public User UserLogin(Models.Login.LoginVM userAuth)
         {
             User user = new User();
-             user= userRepos.Read(email);
-            if (user == null) { 
-                return false;
+            user = userRepos.Read(userAuth.Email);
+            if (user == null)
+            {
+                return null;
             }
             else
             {
-                if (user.MotPasse == password)
+                if (user.MotPasse == userAuth.MotdePasse && user.IsAuth==1)
                 {
-                        return true;
-                   
+                    return user;
+
                 }
                 else
                 {
-                    return false;
+                    return null;
                 }
             }
         }

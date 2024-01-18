@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Models.User.UserListVM
+@{
     ViewData["Title"] = "User Home";
     Layout = null;
 }
@@ -30,7 +31,7 @@
                                     </button>
                                 </div>
                                 <div class="ms-3" style="margin-top: 130px;">
-                                    <h5>Andy Horwitz</h5>
+                                    <h5>@Model.Nom @Model.Prenom</h5>
                                     <p>New York</p>
                                 </div>
                             </div>
@@ -39,9 +40,9 @@
                                 <div class="mb-5">
                                     <p class="lead fw-normal mb-1">About</p>
                                     <div class="p-4" style="background-color: #f8f9fa;">
-                                        <p class="font-italic mb-1">Email: </p>
-                                        <p class="font-italic mb-1">Tel: </p>
-                                        <p class="font-italic mb-0">Subscribtion Status: </p>
+                                        <p class="font-italic mb-1">Email: @Model.Email</p>
+                                        <p class="font-italic mb-1">Tel: @Model.Tel</p>
+                                        <p class="font-italic mb-0">Subscribtion Status: @Model.SubStatus</p>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -53,8 +54,8 @@
                                              alt="image 1" class="w-100 rounded-3">
                                     </div>
                                     <div class="col mb-2">
-                                       <h2>Next Payment day :</h2>
-                                       <p>14 janvier 2024</p>
+                                       <h3>Subscription's Expire day :</h3>
+                                       <p>@Model.SubExpiredDate</p>
                                     </div>
                                 </div>
                             </div>

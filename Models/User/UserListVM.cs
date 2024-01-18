@@ -8,11 +8,15 @@ namespace Models.User
 {
     public class UserListVM
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Nom { get; set; } = string.Empty;
         public string Prenom { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Tel { get; set; } = string.Empty;
         public string Img { get; set; } = string.Empty;
+        public int IsAuth { get; set; }=0;
+        public string SubStatus { get; set; } = string.Empty;
+        public string SubExpiredDate { get; set; } = string.Empty;
+
     }
 }

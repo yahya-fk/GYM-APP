@@ -20,6 +20,8 @@ namespace DAL.Entity
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int IsAdmin { get; set; }
+        public int IsAuth { get; set; }
+
         public string Nom { get; set; } = string.Empty;
         public string Prenom { get; set; } = string.Empty;
         [Required]
@@ -28,10 +30,11 @@ namespace DAL.Entity
         public string Img { get; set; } = string.Empty;
         public string MotPasse { get; set; } = string.Empty;
 
-        public User(int id, int isAdmin, string nom, string prenom, string email, string tel, string img, string motPasse)
+        public User(int id,int isAuth, int isAdmin, string nom, string prenom, string email, string tel, string img, string motPasse)
         {
             Id = id;
             IsAdmin = isAdmin;
+            IsAdmin = isAuth;
             Nom = nom;
             Prenom = prenom;
             Email = email;

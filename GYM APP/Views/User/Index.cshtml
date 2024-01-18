@@ -1,7 +1,12 @@
-﻿@{
+﻿@model Models.Login.LoginVM
+
+
+@{
+
     ViewData["Title"] = "User Login";
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,18 +35,18 @@
       <div class="col-lg-8">
         <div class="card-body py-5 px-md-5">
 
-                        <form method="post" asp-controller="User" asp-action="Index">
+          <form method="post" asp-controller="User" asp-action="Index">
             <!-- Email input -->
             <div class="form-outline mb-4">
               <label class="form-label h3" for="form2Example1">Email address</label>
-              <input type="email" name="email"  class="form-control" />
+              <input type="email" asp-for="Email" class="form-control" />
               
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-4">
               <label class="form-label h3" for="form2Example2">Password</label>
-              <input type="password" name="password" class="form-control" />
+              <input type="password" asp-for="MotdePasse" class="form-control" />
             </div>
 
             <!-- 2 column grid layout for inline styling -->
