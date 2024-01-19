@@ -85,7 +85,12 @@ namespace GYM_APP.Controllers
             }
             return View(user);
         }
-
+        [Authorize]
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
 
