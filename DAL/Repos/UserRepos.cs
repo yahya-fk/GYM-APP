@@ -15,7 +15,6 @@ namespace DAL.Repos
             MyDbContext myDbContext = new MyDbContext();
             myDbContext.Users.Add(entity);
             myDbContext.SaveChanges();
-
         }
         public User Read(int id)
         {

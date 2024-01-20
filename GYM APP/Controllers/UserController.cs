@@ -16,6 +16,7 @@ namespace GYM_APP.Controllers
     public class UserController : Controller
     {
         UserService userService = new UserService();
+        SubscriptionService SubscriptionService = new SubscriptionService();
         public IActionResult Index()
         {
             ClaimsPrincipal claimUser = HttpContext.User;
@@ -90,6 +91,29 @@ namespace GYM_APP.Controllers
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult SignUp(UserNewVM model) {
+            if (model != null && userService.CheckEmail(model.Email)) {
+                int numberOfDaysToAdd = 0;
+
+                if (model.SubPrice == "Month") {
+                    numberOfDaysToAdd = 1;
+                }
+                if (model.SubPrice == "6Months")
+                {
+                    numberOfDaysToAdd = 6;
+                }
+                if (model.SubPrice == "Year")
+                {
+                    numberOfDaysToAdd = 12;
+                }
+                DateTime newDate = DateTime.Now.AddMonths(numberOfDaysToAdd);
+                userService.UserAdd(0, 0, model.Nom, model.Prenom, model.Email, model.Tel, model.Img, model.MotDePasse);
+                SubscriptionService.SubAdd(userService.GetUserIdByEmail(model.Email), "Waiting For Paiement", model.SubType, DateTime.Now, newDate);
+                return RedirectToAction("", "Home", new { index = "True" });
+            }
+            else { return RedirectToAction("", "Home", new { index = "False" }); }
         }
     }
 }

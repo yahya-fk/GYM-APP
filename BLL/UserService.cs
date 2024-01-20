@@ -26,10 +26,38 @@ namespace BLL
 
             return User;
         }
-        public void UserAdd(int id, int isAuth,int isAdmin, string nom, string prenom, string email, string tel, string img, string motPasse) { 
+        public bool CheckEmail(String Email)
+        {
+
+            if (userRepos.Read(Email) != null)
+            {
+                return false;
+            }
+            return true;
+        }
+        public int GetUserIdByEmail(String Email)
+        {
+            User user = userRepos.Read(Email);
+            return user.Id;
+        }
+       public void UserAdd(int id, int isAuth,int isAdmin, string nom, string prenom, string email, string tel, string img, string motPasse) { 
             User user = new User( id, isAuth,  isAdmin,  nom,  prenom,  email,  tel,  img,  motPasse);
             userRepos.Create(user);
         }
+        public void UserAdd( int isAuth,int isAdmin, string nom, string prenom, string email, string tel, string img, string motPasse) {
+            DateTime currentDate = DateTime.Now;
+            int year = currentDate.Year%100 ;
+            int month = currentDate.Month;
+            int day = currentDate.Day;
+            int hour = currentDate.Hour;
+            int minute = currentDate.Minute;
+            int second = currentDate.Second;
+            int UserId = (year * 1000000) + (month * 10000) + (day * 100) + (hour * 100) + minute * 10 + second;
+            Console.WriteLine(UserId);
+            User user = new User( UserId,isAuth,  isAdmin,  nom,  prenom,  email,  tel,  img,  motPasse);
+            userRepos.Create(user);
+        }
+
         public User UserLogin(Models.Login.LoginVM userAuth)
         {
             User user = new User();

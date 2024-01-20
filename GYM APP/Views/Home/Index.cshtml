@@ -1,5 +1,7 @@
-﻿@{
+﻿@model Models.User.UserNewVM
+@{
     ViewData["Title"] = "GYM APP";
+    string index = ViewBag.Index ?? "";
 }
 <style>
     body {
@@ -79,7 +81,19 @@
         margin-bottom: 20px;
     }
 </style>
-<div class="row justify-content-center m-auto  h-30">
+@if (index == "True")
+{
+    <div class=" text-center">
+        <p class="text-success">Your data has been submited Wait for an admin to Approuve u ;)</p>
+    </div>
+}
+@if (index == "False")
+{
+<div class=" text-center">
+    <p class="text-danger">Error !!! or email already user</p>
+</div>
+}
+<div class="row text-center justify-content-center m-auto  h-30">
     <div id="carouselExampleInterval" class="carousel slide  display-flex " data-bs-ride="carousel">
         <div class="carousel-inner  ">
             <div class="carousel-item active w-100 justify-content-center m-auto" data-bs-interval="10000">
@@ -131,44 +145,51 @@
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
             <div class="">
                 <h5 class="text-center mb-4">do wanna be strongger</h5>
-                <form class="form-card" onsubmit="event.preventDefault()">
+                <form class="form-card" asp-action="SignUp" asp-controller="User" method="post">
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3">First name<span class="text-danger"> *</span></label>
-                            <input type="text" id="fname" name="fname" placeholder="Enter your first name" onblur="validate(1)">
+                            <input type="text" id="fname" asp-for="@Model.Nom" placeholder="Enter your first name" required onblur="validate(1)">
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3">Last name<span class="text-danger"> *</span></label>
-                            <input type="text" id="lname" name="lname" placeholder="Enter your last name" onblur="validate(2)">
+                            <input type="text" id="lname" asp-for="@Model.Prenom" placeholder="Enter your last name" required onblur="validate(2)">
                         </div>
                     </div>
-
+                    <hr />
                     <div class="row justify-content-between text-left">
+                        <h6>Your Authentification keys</h6>
                         <div class="form-group col-sm-6 flex-column d-flex">
-                            <label class="form-control-label px-3">Business email<span class="text-danger"> *</span></label>
-                            <input type="text" id="email" name="email" placeholder="Your email" onblur="validate(3)">
+                            <label class="form-control-label px-3">email<span class="text-danger"> *</span></label>
+                            <input type="email" id="email" asp-for="@Model.Email" placeholder="Your email" required onblur="validate(3)">
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex">
-                            <label class="form-control-label px-3">Phone number<span class="text-danger"> *</span></label>
-                            <input type="text" id="mob" name="mob" placeholder="Your phone number" onblur="validate(4)">
+                            <label class="form-control-label px-3">Password<span class="text-danger"> *</span></label>
+                            <input type="password" id="passwd" asp-for="@Model.MotDePasse" placeholder="Your passwd" required onblur="validate(3)">
                         </div>
+                        <hr />
                     </div>
+                        <div class="form-group col-sm-12 flex-column d-flex">
+                            <label class="form-control-label px-3">Phone number<span class="text-danger"> *</span></label>
+                        <input type="text" id="mob" asp-for="@Model.Tel" placeholder="Your phone number" required onblur="validate(4)">
+                        </div>
+                    
 
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-12 flex-column d-flex">
                             <label class="form-control-label px-3">Subscription:<span class="text-danger"> *</span></label>
-                            <select id="Sub" class="form-control">
+                            <select id="Sub" asp-for="@Model.SubType" required class="form-control">
                                 <option value="">Choose a Subscription</option>
-                                <option value="1">Silver</option>
-                                <option value="2">Gold</option>
-                                <option value="3">Diamond</option>
+                                <option value="Silver">Silver</option>
+                                <option value="Gold">Gold</option>
+                                <option value="Diamond">Diamond</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group col-12 flex-column d-flex">
-                        <label class="form-control-label px-3">Price:<span class="text-danger"> *</span></label>
-                        <select id="Price" class="form-control">
+                        <label  class="form-control-label px-3">Price:<span class="text-danger"> *</span></label>
+                        <select asp-for="@Model.SubPrice" id="Price" required class="form-control">
                         </select>
                     </div>
 
@@ -189,12 +210,12 @@
         let price = document.getElementById("Price");
 
         sub.addEventListener("change", function () {
-            if (sub.value === "1") {
-                price.innerHTML = "<option value='1'>200dh For a Month</option><option value='2'>1000dh For 6 Months</option><option value='3'>20000dh For a Year</option>";
-            } else if (sub.value === "2") {
-                price.innerHTML = "<option value='1'>300dh For a Month</option><option value='2'>1500dh For 6 Months</option><option value='3'>30000dh For a Year</option>";
-            } else if (sub.value === "3") {
-                price.innerHTML = "<option value='1'>400dh For a Month</option><option value='2'>20000dh For 6 Months</option><option value='3'>40000dh For a Year</option>";
+            if (sub.value === "Silver") {
+                price.innerHTML = "<option value=''>Choose a Price</option><option value='Month'>200dh For a Month</option><option value='6Months'>1000dh For 6 Months</option><option value='Year'>20000dh For a Year</option>";
+            } else if (sub.value === "Gold") {
+                price.innerHTML = "<option value=''>Choose a Price</option><option value='Month'>300dh For a Month</option><option value='6Months'>1500dh For 6 Months</option><option value='Year'>30000dh For a Year</option>";
+            } else if (sub.value === "Diamond") {
+                price.innerHTML = "<option value=''>Choose a Price</option><option value='Month'>400dh For a Month</option><option value='6Months'>20000dh For 6 Months</option><option value='Year'>40000dh For a Year</option>";
             } else {
                 price.innerHTML = "<option value=''>Choose a Subscription</option>";
             }

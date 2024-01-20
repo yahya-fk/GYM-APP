@@ -33,9 +33,12 @@
           class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
       </div>
       <div class="col-lg-8">
-        <div class="card-body py-5 px-md-5">
-
-          <form method="post" asp-controller="User" asp-action="Index">
+        <div class="card-body  py-5 px-md-5">
+            <div class="text-center">
+                <h1>Sign In :</h1>
+                <p class="text-danger">@ViewData["ValidateMessage"]</p>
+            </div>
+           <form method="post"  asp-controller="User" asp-action="Index">
             <!-- Email input -->
             <div class="form-outline mb-4">
               <label class="form-label h3" for="form2Example1">Email address</label>

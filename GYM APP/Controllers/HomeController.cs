@@ -13,12 +13,14 @@ namespace GYM_APP.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string index)
         {
             BLL.SubscriptionService subscriptionService = new BLL.SubscriptionService();
             subscriptionService.CheckSubStatus();
+            ViewBag.Index = index;
             return View();
         }
+       
 
         public IActionResult Privacy()
         {

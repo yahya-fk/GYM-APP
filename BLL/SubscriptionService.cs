@@ -18,6 +18,22 @@ namespace BLL
             Subscription subscription = new Subscription(subId,  userId,  subStatus,  subType, subDate, subExpiredDate);
             subscriptionRepos.Create(subscription);
         }
+        public void SubAdd(int userId, string subStatus, string subType, DateTime subDate, DateTime subExpiredDate)
+        {
+            DateTime currentDate = DateTime.Now;
+            int year = currentDate.Year % 100; 
+            int month = currentDate.Month;
+            int day = currentDate.Day;
+            int hour = currentDate.Hour;
+            int minute = currentDate.Minute;
+            int second = currentDate.Second;
+            int SubID = (year * 1000000) + (month * 10000) + (day * 100) + (hour * 100) + minute * 10 + second;
+            Console.WriteLine(SubID);
+
+            Subscription subscription = new Subscription( SubID, userId,  subStatus,  subType, subDate, subExpiredDate);
+            subscriptionRepos.Create(subscription);
+        }
+
         public void CheckSubStatus()
         {
             subscriptionRepos.UpdateSubscriptionStatus();

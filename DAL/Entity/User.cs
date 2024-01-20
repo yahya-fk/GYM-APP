@@ -42,5 +42,6 @@ namespace DAL.Entity
             Img = img;
             MotPasse = motPasse;
         }
+        
     }
 }

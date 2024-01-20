@@ -31,6 +31,7 @@ namespace DAL.Entity
             SubDate = subDate;
             SubExpiredDate = subExpiredDate;
         }
+      
         public Subscription() { }
     }
 }
