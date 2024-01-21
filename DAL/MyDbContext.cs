@@ -24,8 +24,9 @@ namespace DAL
         {
             optionsBuilder.UseSqlServer
                 (@"Data Source=Localhost\SQLEXPRESS;Database=GYMAPP;Trusted_Connection=True;MultipleActiveResultSets=True;TrustServerCertificate=True");
+
         }
-        public override int SaveChanges()
+        /*public override int SaveChanges()
         {
             using (var transaction = Database.BeginTransaction())
             {
@@ -70,6 +71,61 @@ namespace DAL
                     throw; // Rethrow the exception after rolling back the transaction
                 }
             }
+        }*/
+        public override int SaveChanges()
+        {
+            using (var transaction = Database.BeginTransaction())
+            {
+                try
+                {
+                    EnableIdentityInsertForModifiedAndAddedEntities();
+
+                    var result = base.SaveChanges();
+
+                    DisableIdentityInsertForEntities();
+
+                    transaction.Commit();
+
+                    return result;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
         }
+
+        private void EnableIdentityInsertForModifiedAndAddedEntities()
+        {
+            foreach (var entry in ChangeTracker.Entries().Where(e => e.State == EntityState.Added || e.State == EntityState.Modified))
+            {
+                var identityColumn = entry.Metadata.FindPrimaryKey().Properties
+                    .FirstOrDefault(p => p.ValueGenerated == Microsoft.EntityFrameworkCore.Metadata.ValueGenerated.OnAdd);
+
+                if (identityColumn != null)
+                {
+                    Database.ExecuteSqlRaw($"SET IDENTITY_INSERT {entry.Metadata.GetTableName()} ON");
+                    break;
+                }
+            }
+        }
+
+        private void DisableIdentityInsertForEntities()
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                var identityColumn = entry.Metadata.FindPrimaryKey().Properties
+                    .FirstOrDefault(p => p.ValueGenerated == Microsoft.EntityFrameworkCore.Metadata.ValueGenerated.OnAdd);
+
+                if (identityColumn != null)
+                {
+                    Database.ExecuteSqlRaw($"SET IDENTITY_INSERT {entry.Metadata.GetTableName()} OFF");
+                    break;
+                }
+            }
+        }
+
+
     }
 }

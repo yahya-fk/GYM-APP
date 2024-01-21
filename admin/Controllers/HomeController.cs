@@ -1,6 +1,7 @@
 using admin.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace admin.Controllers
 {
@@ -15,6 +16,11 @@ namespace admin.Controllers
 
         public IActionResult Index()
         {
+
+            ClaimsPrincipal claimUser = HttpContext.User;
+
+            if (claimUser.Identity.IsAuthenticated)
+                return RedirectToAction("Home", "User");
             return View();
         }
 

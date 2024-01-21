@@ -36,24 +36,13 @@ namespace DAL.Repos
         }
         public void Update(User updatedEntity)
         {
-            using (MyDbContext myDbContext = new MyDbContext())
+            using (var dbContext = new MyDbContext())
             {
-                var existingEntity = Read(updatedEntity.Id);
-                if (existingEntity != null)
-                {
-                    existingEntity.IsAdmin = updatedEntity.IsAdmin;
-                    existingEntity.Nom = updatedEntity.Nom;
-                    existingEntity.Prenom = updatedEntity.Prenom;
-                    existingEntity.Email = updatedEntity.Email;
-                    existingEntity.Tel = updatedEntity.Tel;
-                    existingEntity.Img = updatedEntity.Img;
-                    existingEntity.MotPasse = updatedEntity.MotPasse;
-
-                    myDbContext.SaveChanges();
-                }
-                
+                dbContext.Update(updatedEntity);
+                dbContext.SaveChanges();
             }
         }
+
 
         public void Delete(int id)
         {

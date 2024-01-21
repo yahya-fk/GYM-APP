@@ -34,7 +34,7 @@ namespace DAL.Entity
         {
             Id = id;
             IsAdmin = isAdmin;
-            IsAdmin = isAuth;
+            IsAuth = isAuth;
             Nom = nom;
             Prenom = prenom;
             Email = email;
