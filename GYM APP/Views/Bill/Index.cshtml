@@ -1,0 +1,196 @@
+﻿@model Models.Bill.BillNewVM
+@{
+    ViewData["Title"] = "Bill Page";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Bill Page</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <style>
+        /* Import Google font - Poppins */
+@@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #727365;
+}
+.container {
+  position: relative;
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.container header {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+}
+.container .form {
+  margin-top: 30px;
+}
+.form .input-box {
+  width: 100%;
+  margin-top: 20px;
+}
+.input-box label {
+  color: #333;
+}
+.form :where(.input-box input, .select-box) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+.input-box input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.form .column {
+  display: flex;
+  column-gap: 15px;
+}
+.form .gender-box {
+  margin-top: 20px;
+}
+.gender-box h3 {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.form :where(.gender-option, .gender) {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+  flex-wrap: wrap;
+}
+.form .gender {
+  column-gap: 5px;
+}
+.gender input {
+            accent-color: #727365;
+}
+.form :where(.gender input, .gender label) {
+  cursor: pointer;
+}
+.gender label {
+  color: #707070;
+}
+.address :where(input, .select-box) {
+  margin-top: 15px;
+}
+.select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: #707070;
+  font-size: 1rem;
+}
+.form button {
+  height: 55px;
+  width: 100%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+            background: #727365;
+}
+.form button:hover {
+                background: #F2F2F2;
+}
+/*Responsive*/
+@@media screen and (max-width: 500px) {
+  .form .column {
+    flex-wrap: wrap;
+  }
+  .form :where(.gender-option, .gender) {
+    row-gap: 15px;
+  }
+}
+    </style>
+    <section class="container">
+        <header>Bill Form</header>
+        <form asp-action="BillAction" asp-controller="Bill" method="post" class="form">
+            <div class="input-box">
+                <label>Subscription :</label>
+                <div class="select-box">
+                    <select id="Sub" asp-for="@Model.SubType" required class="form-control">
+                        <option value="">Choose a Subscription</option>
+                        <option value="Silver">Silver</option>
+                        <option value="Gold">Gold</option>
+                        <option value="Diamond">Diamond</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-box">
+                <label>Sub Duration</label>
+                <div class="select-box">
+                   <select asp-for="@Model.BillDuration" id="Price" required class="form-control">
+                        <option value="">Choose a Subscription</option>
+
+                   </select>
+                </div>
+            </div>
+            <div class="input-box">
+                <label>Payment Method :</label>
+                <div class="select-box">
+                    <select id="Sub" asp-for="@Model.BillMethod" required class="form-control">
+                        <option value="">Choose a Payment Method</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Debit Card">Debit Card</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let sub = document.getElementById("Sub");
+        let price = document.getElementById("Price");
+
+        sub.addEventListener("change", function () {
+            if (sub.value === "Silver") {
+                price.innerHTML = "<option value=''>Choose a Price</option><option value='Month'>200dh For a Month</option><option value='6Months'>1000dh For 6 Months</option><option value='Year'>20000dh For a Year</option>";
+            } else if (sub.value === "Gold") {
+                price.innerHTML = "<option value=''>Choose a Price</option><option value='Month'>300dh For a Month</option><option value='6Months'>1500dh For 6 Months</option><option value='Year'>30000dh For a Year</option>";
+            } else if (sub.value === "Diamond") {
+                price.innerHTML = "<option value=''>Choose a Price</option><option value='Month'>400dh For a Month</option><option value='6Months'>20000dh For 6 Months</option><option value='Year'>40000dh For a Year</option>";
+            } else {
+                price.innerHTML = "<option value=''>Choose a Subscription</option>";
+            }
+        });
+    });
+</script>
+</body>
+</html>

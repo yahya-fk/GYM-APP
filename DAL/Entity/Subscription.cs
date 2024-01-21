@@ -14,7 +14,7 @@ namespace DAL.Entity
     {
         [Key]
         public int SubId { get; set; }
-        [ForeignKey("User")]
+        [ForeignKey("T_User")]
         public int UserId { get; set; }
         public string SubStatus { get; set; }
         public string SubType { get; set; }

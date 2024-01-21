@@ -10,6 +10,7 @@ namespace DAL
     {
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Bill> Bills { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -34,7 +34,6 @@
                                 </div>
                                 <div class="ms-3" style="margin-top: 130px;">
                                     <h5>@Model.Nom @Model.Prenom</h5>
-                                    <p>New York</p>
                                 </div>
                             </div>
                           
@@ -58,6 +57,8 @@
                                     <div class="col mb-2">
                                        <h3>Subscription's Expire day :</h3>
                                        <p>@Model.SubExpiredDate</p>
+                                        <h3 class="mt-5">Payment page :</h3>
+                                        <a class="btn btn-outline-success" asp-action="" asp-controller="Bill">Extend or pay your Subscription</a>
                                     </div>
                                 </div>
                             </div>

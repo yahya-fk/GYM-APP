@@ -23,6 +23,14 @@ namespace DAL.Repos
                 {
                     subscription.SubStatus = "Expired";
                 }
+                subscriptions = myDbContext.Subscriptions
+                    .Where(x => x.SubExpiredDate > DateTime.Now && x.SubStatus != "Active")
+                    .ToList();
+
+                foreach (var subscription in subscriptions)
+                {
+                    subscription.SubStatus = "Active";
+                }
 
                 myDbContext.SaveChanges();
             }
@@ -39,11 +47,21 @@ namespace DAL.Repos
             MyDbContext myDbContext = new MyDbContext();
             return myDbContext.Subscriptions.Find(id);
         }
+        public Subscription ReadByUserAndSub(int UserId)
+        {
+            using (MyDbContext myDbContext = new MyDbContext())
+            {
+                return myDbContext.Subscriptions.Where(u => u.UserId == UserId && ( u.SubStatus == "active"|| u.SubStatus == "Waiting For Paiement"))
+                           .OrderByDescending(u => u.SubExpiredDate)
+                           .FirstOrDefault();
+            }
+           
+        }
         public Subscription ReadbyUserId(int UserId)
         {
             using (MyDbContext myDbContext = new MyDbContext())
             {
-                return myDbContext.Subscriptions.FirstOrDefault(u => u.UserId == UserId);
+                return myDbContext.Subscriptions.OrderByDescending(u => u.SubExpiredDate).FirstOrDefault(u => u.UserId == UserId);
             }
         }
         public List<Subscription> GetAll()
