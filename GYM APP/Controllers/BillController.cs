@@ -75,11 +75,7 @@ namespace GYM_APP.Controllers
                 if (entity.BillMethod == "Cash" && Sub.SubId != null)
                 {
                     int BillId=billService.BillAdd(entity.BillMethod, "Waiting For Paiement", Sub.SubId, entity.SubType, numberOfDaysToAdd);
-                    bill.BillId=BillId;
-                    bill.SubType=entity.SubType;
-                    int.TryParse(entity.BillDuration ,out int billdur);
-                    bill.BillDuration = billdur;
-                    return RedirectToAction("Home", "User", new { index = Sub.SubId });
+                    return RedirectToAction("Home", "User", new { index = "Cash" });
 
                 }
 

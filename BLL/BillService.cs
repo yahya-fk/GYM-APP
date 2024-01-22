@@ -105,19 +105,24 @@ namespace BLL
 
             return obj;
         }
-        public void BillUpdate(int billId, string billMethod, string billStatus, int subId, string subType, int billDuration)
+        public void BillUpdate(int billId, DateTime BillDate, string billMethod, string billStatus, int subId, string subType, int billDuration)
         {
-            Bill bill = new Bill( billId,  billMethod,  billStatus,  subId,  subType,  billDuration);
+            Bill bill = new Bill( billId,  billMethod,  billStatus,  subId,  subType,  billDuration, BillDate);
             billRepos.Update(bill);
         }
         public void BillDelete(int id)
         {
             billRepos.Delete(id);
         }
+        public DateTime GetBillDate(int id)
+        {
+            var bill=billRepos.Read(id);
+            return bill.BillDate;
+        }
         public void BillUpdate(Models.Bill.BillListVM bill)
         {
-
-            BillUpdate(bill.BillId, bill.BillMethod, bill.BillStatus, bill.SubId, bill.SubType, bill.BillDuration);
+            var date=GetBillDate(bill.BillId);
+            BillUpdate(bill.BillId, date,bill.BillMethod, bill.BillStatus, bill.SubId, bill.SubType, bill.BillDuration);
 
         }
     }

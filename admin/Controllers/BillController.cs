@@ -31,7 +31,7 @@ namespace admin.Controllers
             {
                 
                 Billservice.BillUpdate(bill);
-                return View("index");
+                return RedirectToAction("index");
             }
             catch
             {

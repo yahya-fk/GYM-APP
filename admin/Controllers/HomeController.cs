@@ -1,4 +1,5 @@
 using admin.Models;
+using BLL;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -16,6 +17,8 @@ namespace admin.Controllers
 
         public IActionResult Index()
         {
+            SubscriptionService subscriptionService = new SubscriptionService();    
+            subscriptionService.CheckSubStatus();
 
             ClaimsPrincipal claimUser = HttpContext.User;
 

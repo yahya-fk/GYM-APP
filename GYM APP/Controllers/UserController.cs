@@ -66,8 +66,9 @@ namespace GYM_APP.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult Home()
+        public IActionResult Home(string index)
         {
+            ViewBag.Index = index;
             SubscriptionService subscriptionService = new SubscriptionService();
             UserListVM user=new UserListVM();
             var claims = User.Claims;

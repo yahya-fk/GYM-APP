@@ -1,0 +1,49 @@
+﻿@model Models.Subscription.SubListVM
+@{
+    ViewData["Title"] = "Edit Subscription";
+}
+
+<form method="post" class="card shadow-sm p-5" asp-action="Edit">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h3>Update Subscription:</h3>
+        </div>
+        <div class="form-group m-2 row">
+            <label for="subId" class="col-sm-2 col-form-label">Subscription ID:</label>
+            <div class="col-sm-10">
+                <input type="text" id="subId" asp-for="@Model.SubId" value="@Model.SubId" readonly onblur="validate(3)" name="SubId" class="form-control">
+            </div>
+        </div>
+        <div class="form-group m-2 row">
+            <label for="userId" class="col-sm-2 col-form-label">User ID:</label>
+            <div class="col-sm-10">
+                <input type="text" id="userId" asp-for="@Model.UserId" value="@Model.UserId" readonly onblur="validate(3)" name="UserId" class="form-control">
+            </div>
+        </div>
+        <div class="form-group m-2 row">
+            <label for="subStatus" class="col-sm-2 col-form-label">Subscription Status<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="subStatus" asp-for="@Model.SubStatus" value="@Model.SubStatus" required onblur="validate(1)" name="SubStatus" class="form-control">
+            </div>
+            <label for="subType" class="col-sm-2 col-form-label">Subscription Type<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="subType" asp-for="@Model.SubType" value="@Model.SubType" required onblur="validate(2)" name="SubType" class="form-control">
+            </div>
+        </div>
+        <div class="form-group m-2 row">
+            <label for="subDate" class="col-sm-2 col-form-label">Subscription Date<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="subDate" asp-for="@Model.SubDate" value="@Model.SubDate" required onblur="validate(3)" name="SubDate" class="form-control">
+            </div>
+            <label for="subExpiredDate" class="col-sm-2 col-form-label">Subscription Expired Date<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="subExpiredDate" asp-for="@Model.SubExpiredDate" value="@Model.SubExpiredDate" required onblur="validate(3)" name="SubExpiredDate" class="form-control">
+            </div>
+        </div>
+        <div class="form-group mt-3 row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-outline-primary w-100">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>

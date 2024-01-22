@@ -74,15 +74,9 @@ namespace DAL.Repos
         {
             using (MyDbContext myDbContext = new MyDbContext())
             {
-                var existingEntity = Read(updatedEntity.SubId);
-                if (existingEntity != null)
-                {
-                    existingEntity.UserId = updatedEntity.UserId;
-                    existingEntity.SubExpiredDate = updatedEntity.SubExpiredDate;
-                    existingEntity.SubStatus = updatedEntity.SubStatus;
-                    existingEntity.SubDate = updatedEntity.SubDate;
-                    myDbContext.SaveChanges();
-                }
+                myDbContext.Update(updatedEntity);
+                 myDbContext.SaveChanges();
+                
 
             }
         }

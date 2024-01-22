@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "User Home";
     Layout = null;
+    string index = ViewBag.Index ?? "";
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +16,25 @@
         <link rel="stylesheet" href="~/GYM_APP.styles.css" asp-append-version="true" />
     </head>
     <body style="height:100vh; padding:0; margin:0;">
+    @if (index == "True")
+    {
+        <div class=" text-center">
+            <p class="text-success">Your data has been submited if there is a probleme with the subscription call an Admin ;)</p>
+        </div>
+    }
 
+    @if (index == "False")
+    {
+        <div class=" text-center">
+            <p class="text-danger">Error !!! </p>
+        </div>
+    }
+    @if (index == "Cash")
+    {
+        <div class=" text-center">
+            <p class="text-success">your bill is Submited waiting For u to pay ;)</p>
+        </div>
+    }
     <section style="height:100vh;" class=" h-100 gradient-custom-2">
             <div class="container w-100 h-100"> 
                 <div class="row d-flex justify-content-center align-items-center h-100">

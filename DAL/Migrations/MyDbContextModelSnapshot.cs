@@ -30,6 +30,9 @@ namespace DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BillId"));
 
+                    b.Property<DateTime>("BillDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("BillDuration")
                         .HasColumnType("int");
 

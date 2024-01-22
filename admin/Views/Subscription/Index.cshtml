@@ -1,0 +1,39 @@
+﻿@model List<Models.Subscription.SubscriptionListVM>
+@{
+    ViewData["Title"] = "Subscription List";
+}
+<div class="">
+    <h5>Add User :</h5>
+    <a class="btn btn-success" asp-action="create" asp-controller="User">Ajouter</a>
+</div>
+<div class="container mt-4">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Subscription ID</th>
+                <th>User ID</th>
+                <th>Subscription Status</th>
+                <th>Subscription Type</th>
+                <th>Subscription Date</th>
+                <th>Subscription Expired Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.SubId</td>
+                    <td>@item.UserId</td>
+                    <td>@item.SubStatus</td>
+                    <td>@item.SubType</td>
+                    <td>@item.SubDate</td>
+                    <td>@item.SubExpiredDate</td>
+                    <td>
+                        <a class="btn btn-primary" asp-route-id="@item.SubId" asp-action="edit" asp-controller="Subscription">Editer</a>
+                        <a class="btn btn-danger" asp-route-id="@item.SubId" asp-action="delete" asp-controller="Subscription">Supprimer</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

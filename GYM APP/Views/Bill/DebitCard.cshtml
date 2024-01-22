@@ -1,41 +1,38 @@
 ﻿@{
-    ViewData["Title"] = "debit Card Page";
+    ViewData["Title"] = "Debit Card Page";
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Bill Page</title>
+    <title>Debit Card Page</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/GYM_APP.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/3.0.0/jquery.payment.min.css" />
 </head>
 <body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/3.0.0/jquery.payment.min.js"></script>
-<div class="padding">
-    <div class="row">
-        <div class="container-fluid d-flex justify-content-center">
+
+    <div class="container-fluid mt-5">
+        <div class="row justify-content-center">
             <div class="col-sm-8 col-md-6">
                 <div class="card">
                     <div class="card-header">
-
                         <div class="row">
                             <div class="col-md-6">
                                 <span>CREDIT/DEBIT CARD PAYMENT</span>
-
                             </div>
-
                             <div class="col-md-6 text-right" style="margin-top: -5px;">
-
                                 <img src="https://img.icons8.com/color/36/000000/visa.png">
                                 <img src="https://img.icons8.com/color/36/000000/mastercard.png">
                                 <img src="https://img.icons8.com/color/36/000000/amex.png">
-
                             </div>
-
                         </div>
-
                     </div>
                     <form asp-action="BillValidate" asp-controller="Bill">
                         <div class="card-body" style="height: 350px">
@@ -45,43 +42,39 @@
                             </div>
 
                             <div class="row">
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="cc-exp" class="control-label">CARD EXPIRY</label>
                                         <input id="cc-exp" type="tel" class="input-lg form-control cc-exp" autocomplete="cc-exp" placeholder="&bull;&bull; / &bull;&bull;" required>
                                     </div>
-
-
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="cc-cvc" class="control-label">CARD CVC</label>
                                         <input id="cc-cvc" type="tel" class="input-lg form-control cc-cvc" autocomplete="off" placeholder="&bull;&bull;&bull;&bull;" required>
                                     </div>
                                 </div>
-
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="numeric" class="control-label">CARD HOLDER NAME</label>
-                                <input type="text" class="input-lg form-control">
                             </div>
 
                             <div class="form-group">
+                                <label for="card-holder" class="control-label">CARD HOLDER NAME</label>
+                                <input id="card-holder" type="text" class="input-lg form-control">
+                            </div>
 
+                            <div class="form-group mt-2">
                                 <input value="MAKE PAYMENT" type="submit" class="btn btn-success btn-lg form-control" style="font-size: .8rem;">
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-</div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/3.0.0/jquery.payment.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
 </body>
 </html>

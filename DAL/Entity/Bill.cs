@@ -18,6 +18,8 @@ namespace DAL.Entity
 
         [Key]
         public int BillId { get; set; }
+        public DateTime BillDate { get; set; }=DateTime.Now;
+
         public string BillMethod { get; set; }=string.Empty;
         public string BillStatus { get; set; } = string.Empty;
         [ForeignKey("T_Subscription")]
@@ -33,6 +35,17 @@ namespace DAL.Entity
             SubId = subId;
             SubType = subType;
             BillDuration = billDuration;
+            BillDate = DateTime.Now;
+        }
+        public Bill(int billId, string billMethod, string billStatus, int subId, string subType, int billDuration,DateTime billDate)
+        {
+            BillId = billId;
+            BillMethod = billMethod;
+            BillStatus = billStatus;
+            SubId = subId;
+            SubType = subType;
+            BillDuration = billDuration;
+            BillDate = billDate;
         }
     }
 }

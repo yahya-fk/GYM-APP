@@ -5,39 +5,39 @@
 
 <form method="post" class="card shadow-sm p-5" asp-action="Edit">
     <div class="container">
-        <div class="text-center mb-2">
-            <h3>Update Bill :</h3>
+        <div class="text-center mb-4">
+            <h3>Update Bill:</h3>
         </div>
-        <div class="form-group  m-2 row">
-            <label for="userId" class="col-sm-2 col-form-label">Bill ID:</label>
+        <div class="form-group m-2 row">
+            <label for="billId" class="col-sm-2 col-form-label">Bill ID:</label>
             <div class="col-sm-10">
-                <input type="text" id="userId" asp-for="@Model.BillId" value="@Model.BillId" readonly onblur="validate(3)" name="Id" class="form-control">
-            </div>
-        </div>
-        <div class="form-group  m-2 row">
-            <label for="userId" class="col-sm-2 col-form-label">Bill Owner:</label>
-            <div class="col-sm-10">
-                <input type="text" id="userId" asp-for="@Model.BillOwner" value="@Model.BillOwner" readonly onblur="validate(3)" name="Id" class="form-control">
-            </div>
-        </div>
-        <div class="form-group  m-2 row">
-            <label for="fname" class="col-sm-2 col-form-label">Bill State<span class="text-danger"> *</span></label>
-            <div class="col-sm-4">
-                <input type="text" id="fname" asp-for="@Model.BillStatus" value="@Model.BillStatus" required onblur="validate(1)" name="Prenom" class="form-control">
-            </div>
-            <label for="lname" class="col-sm-2 col-form-label">Bill Method<span class="text-danger"> *</span></label>
-            <div class="col-sm-4">
-                <input type="text" id="lname" asp-for="@Model.BillMethod" value="@Model.BillMethod" required onblur="validate(2)" name="Nom" class="form-control">
+                <input type="text" id="billId" asp-for="@Model.BillId" value="@Model.BillId" readonly onblur="validate(3)" name="BillId" class="form-control">
             </div>
         </div>
         <div class="form-group m-2 row">
-            <label for="email" class="col-sm-2 col-form-label">Bill Duration<span class="text-danger"> *</span></label>
-            <div class="col-sm-4">
-                <input type="text" id="email" asp-for="@Model.BillDuration" value="@Model.BillDuration" required onblur="validate(3)" name="Email" class="form-control">
+            <label for="billOwner" class="col-sm-2 col-form-label">Bill Owner:</label>
+            <div class="col-sm-10">
+                <input type="text" id="billOwner" asp-for="@Model.BillOwner" value="@Model.BillOwner" readonly onblur="validate(3)" name="BillOwner" class="form-control">
             </div>
-            <label for="passwd" class="col-sm-2 col-form-label">SubID<span class="text-danger"> *</span></label>
+        </div>
+        <div class="form-group m-2 row">
+            <label for="billStatus" class="col-sm-2 col-form-label">Bill State<span class="text-danger"> *</span></label>
             <div class="col-sm-4">
-                <input type="text" id="passwd" asp-for="@Model.SubId" value="@Model.SubId" required onblur="validate(3)" name="MotDePasse" class="form-control">
+                <input type="text" id="billStatus" asp-for="@Model.BillStatus" value="@Model.BillStatus" required onblur="validate(1)" name="BillStatus" class="form-control">
+            </div>
+            <label for="billMethod" class="col-sm-2 col-form-label">Bill Method<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="billMethod" asp-for="@Model.BillMethod" value="@Model.BillMethod" required onblur="validate(2)" name="BillMethod" class="form-control">
+            </div>
+        </div>
+        <div class="form-group m-2 row">
+            <label for="billDuration" class="col-sm-2 col-form-label">Bill Duration<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="billDuration" asp-for="@Model.BillDuration" value="@Model.BillDuration" required onblur="validate(3)" name="BillDuration" class="form-control">
+            </div>
+            <label for="subId" class="col-sm-2 col-form-label">SubID<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="subId" asp-for="@Model.SubId" value="@Model.SubId" required onblur="validate(3)" name="SubId" class="form-control">
             </div>
         </div>
         <div class="form-group mt-3 row">

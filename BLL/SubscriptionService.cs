@@ -1,5 +1,8 @@
 ﻿using DAL.Entity;
 using DAL.Repos;
+using Models.Bill;
+using Models.Subscription;
+using Models.User;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -96,6 +99,34 @@ namespace BLL
         {
             DateTime newDate = subscription.SubExpiredDate.AddMonths(Duration);
             SubUpdate(subscription.SubId, subscription.UserId, subscription.SubStatus, subscription.SubType, subscription.SubDate, newDate);
+        }
+        public List<SubscriptionListVM> GetAll()
+        {
+            List<SubscriptionListVM> list = new List<SubscriptionListVM>();
+
+            foreach (Subscription item in subscriptionRepos.GetAll())
+            {
+                SubscriptionListVM obj = new SubscriptionListVM(item);
+                list.Add(obj);
+            }
+            return list;
+        }
+        public SubscriptionListVM GetSubscription(int id)
+        {
+            var item = subscriptionRepos.Read(id);
+            SubscriptionListVM obj = new SubscriptionListVM(item);
+
+            return obj;
+        }
+        public void SubDelete(int id)
+        {
+            subscriptionRepos.Delete(id);
+        }
+        public void SubUpdate(SubscriptionListVM subscriptionListVM)
+        {
+
+            SubUpdate(subscriptionListVM.SubId, subscriptionListVM.UserId, subscriptionListVM.SubStatus, subscriptionListVM.SubType, subscriptionListVM.SubDate, subscriptionListVM.SubExpiredDate);
+
         }
 
     }

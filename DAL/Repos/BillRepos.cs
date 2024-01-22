@@ -25,7 +25,10 @@ namespace DAL.Repos
         {
             using (MyDbContext myDbContext = new MyDbContext())
             {
-                return myDbContext.Bills.FirstOrDefault(u => u.SubId == SubID);
+                return myDbContext.Bills
+                .Where(u => u.SubId == SubID)
+                .OrderByDescending(u => u.BillDate)
+                .FirstOrDefault();
             }
         }
         public List<Bill> GetAll()
@@ -38,19 +41,9 @@ namespace DAL.Repos
         {
             using (MyDbContext myDbContext = new MyDbContext())
             {
-                var existingEntity = Read(updatedEntity.BillId);
-
-                if (existingEntity != null)
-                {
-
-                    existingEntity.BillMethod = updatedEntity.BillMethod;
-                    existingEntity.BillDuration = updatedEntity.BillDuration;
-                    existingEntity.BillStatus = updatedEntity.BillStatus;
-                    existingEntity.SubId = updatedEntity.SubId;
-                    existingEntity.SubType = updatedEntity.SubType;
-
-                    myDbContext.SaveChanges();
-                }
+                myDbContext.Update(updatedEntity);
+                myDbContext.SaveChanges(true);
+              
             }
         }
 
