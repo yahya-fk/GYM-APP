@@ -32,12 +32,12 @@ namespace GYM_APP.Controllers
                 var claims = User.Claims;
                 var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
                 int.TryParse(userIdClaim.Value, out int userId);
-                BillPdfInfosVM bill = new BillPdfInfosVM();
+                BillListVM bill = new BillListVM();
                 if (userIdClaim != null)
                 {
-                    bill.email = User.FindFirst(ClaimTypes.Email).Value;
-                    bill.name= User.FindFirst(ClaimTypes.Name).Value+" "+ User.FindFirst(ClaimTypes.GivenName).Value;
-                    bill.Tel = User.FindFirst(ClaimTypes.MobilePhone).Value;
+                   // bill.email = User.FindFirst(ClaimTypes.Email).Value;
+                   // bill.name= User.FindFirst(ClaimTypes.Name).Value+" "+ User.FindFirst(ClaimTypes.GivenName).Value;
+                   // bill.Tel = User.FindFirst(ClaimTypes.MobilePhone).Value;
                 }
                 int numberOfDaysToAdd = 0;
 
@@ -75,9 +75,10 @@ namespace GYM_APP.Controllers
                 if (entity.BillMethod == "Cash" && Sub.SubId != null)
                 {
                     int BillId=billService.BillAdd(entity.BillMethod, "Waiting For Paiement", Sub.SubId, entity.SubType, numberOfDaysToAdd);
-                    bill.billId=BillId.ToString();
+                    bill.BillId=BillId;
                     bill.SubType=entity.SubType;
-                    bill.price = entity.BillDuration;
+                    int.TryParse(entity.BillDuration ,out int billdur);
+                    bill.BillDuration = billdur;
                     return RedirectToAction("Home", "User", new { index = Sub.SubId });
 
                 }

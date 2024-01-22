@@ -1,0 +1,40 @@
+﻿@model Models.Bill.BillListVM
+@{
+    ViewData["Title"] = "Edit Bill";
+}
+
+<form method="post" class="card shadow-sm p-5" asp-action="Create">
+    <div class="container">
+        <div class="text-center mb-2">
+            <h3>Update Bill :</h3>
+        </div>
+       
+        <div class="form-group  m-2 row">
+            <label for="fname" class="col-sm-2 col-form-label">Bill State<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="fname" asp-for="@Model.BillStatus"  required onblur="validate(1)" name="Prenom" class="form-control">
+            </div>
+            <label for="lname" class="col-sm-2 col-form-label">Bill Method<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="lname" asp-for="@Model.BillMethod"  required onblur="validate(2)" name="Nom" class="form-control">
+            </div>
+        </div>
+        <div class="form-group m-2 row">
+            <label for="email" class="col-sm-2 col-form-label">Bill Duration<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="email" asp-for="@Model.BillDuration"  required onblur="validate(3)" name="Email" class="form-control">
+            </div>
+            <label for="passwd" class="col-sm-2 col-form-label">SubID<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="passwd" asp-for="@Model.SubId" required onblur="validate(3)" name="MotDePasse" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button class="btn btn-outline-primary w-100">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

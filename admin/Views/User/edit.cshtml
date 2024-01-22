@@ -1,55 +1,75 @@
 ﻿@model Models.User.UserListVM
 @{
-    ViewData["Title"] = "User Edit";
+    ViewData["Title"] = "Edit User";
 }
 
-<form method="post" asp-action="Edit">
-    <div>
-        <div class="form-group col-sm-12 flex-column d-flex">
-            <label class="form-control-label px-3">ID :</label>
-            <input type="text" id="userId" asp-for="@Model.Id" value="@Model.Id" readonly onblur="validate(3)" name="Id">
+<form method="post" class="card shadow-sm p-5"  asp-action="Edit">
+    <div class="container">
+        <div class="text-center mb-2">
+            <h3>Update User :</h3>
         </div>
-        <div class="row justify-content-between text-left">
-            
-            <div class="form-group col-sm-6 flex-column d-flex">
-                <label class="form-control-label px-3">First name<span class="text-danger"> *</span></label>
-                <input type="text" id="fname" asp-for="@Model.Prenom" value="@Model.Prenom" required onblur="validate(1)" name="Prenom">
+        <div class="form-group row">
+            <label for="userId" class="col-sm-2 col-form-label">User ID:</label>
+            <div class="col-sm-10">
+                <input type="text" id="userId" asp-for="@Model.Id" value="@Model.Id" readonly onblur="validate(3)" name="Id" class="form-control">
             </div>
-            <div class="form-group col-sm-6 flex-column d-flex">
-                <label class="form-control-label px-3">Last name<span class="text-danger"> *</span></label>
-                <input type="text" id="lname" asp-for="@Model.Nom" value="@Model.Nom" required onblur="validate(2)" name="Nom">
+        </div>
+        <div class="form-group row">
+            <label for="fname" class="col-sm-2 col-form-label">First Name<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="fname" asp-for="@Model.Prenom" value="@Model.Prenom" required onblur="validate(1)" name="Prenom" class="form-control">
+            </div>
+            <label for="lname" class="col-sm-2 col-form-label">Last Name<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="lname" asp-for="@Model.Nom" value="@Model.Nom" required onblur="validate(2)" name="Nom" class="form-control">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="fname" class="col-sm-2 col-form-label">TEl<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="fname" asp-for="@Model.Tel" value="@Model.Tel" required onblur="validate(1)" name="Prenom" class="form-control">
+            </div>
+            <label for="lname" class="col-sm-2 col-form-label">IMG<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="lname" asp-for="@Model.Img" value="@Model.Img" required onblur="validate(2)" name="Nom" class="form-control">
             </div>
         </div>
         <hr />
-        <div class="row justify-content-between text-left">
-            <h6>Your Authentication keys</h6>
-            <div class="form-group col-sm-6 flex-column d-flex">
-                <label class="form-control-label px-3">Email<span class="text-danger"> *</span></label>
-                <input type="email" id="email" asp-for="@Model.Email" value="@Model.Email" required onblur="validate(3)" name="Email">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <h6>Authentication Credentials</h6>
             </div>
-            <div class="form-group col-sm-6 flex-column d-flex">
-                <label class="form-control-label px-3">Password<span class="text-danger"> *</span></label>
-                <input type="text" id="passwd" asp-for="@Model.MotDePasse" value="@Model.MotDePasse" required onblur="validate(3)" name="MotDePasse">
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="email" id="email" asp-for="@Model.Email" value="@Model.Email" required onblur="validate(3)" name="Email" class="form-control">
+            </div>
+            <label for="passwd" class="col-sm-2 col-form-label">Password<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <input type="text" id="passwd" asp-for="@Model.MotDePasse" value="@Model.MotDePasse" required onblur="validate(3)" name="MotDePasse" class="form-control">
             </div>
         </div>
         <hr />
-        <div class="row justify-content-between text-left">
-            <div class="form-group col-sm-6 flex-column d-flex">
-                <label class="form-control-label px-3">Authentication :<span class="text-danger"> *</span></label>
-                <select id="isAuth" asp-for="@Model.IsAuth" value="@Model.IsAuth" name="IsAuth">
+        <div class="form-group row">
+            <label for="isAuth" class="col-sm-2 col-form-label">Authentication<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <select id="isAuth" asp-for="@Model.IsAuth" value="@Model.IsAuth" name="IsAuth" class="form-control">
                     <option value="1">True</option>
                     <option value="0">False</option>
                 </select>
             </div>
-            <div class="form-group col-sm-6 flex-column d-flex">
-                <label class="form-control-label px-3">Admin :<span class="text-danger"> *</span></label>
-                <select id="isAdmin" asp-for="@Model.IsAdmin" value="@Model.IsAdmin" name="IsAdmin">
+            <label for="isAdmin" class="col-sm-2 col-form-label">Admin<span class="text-danger"> *</span></label>
+            <div class="col-sm-4">
+                <select id="isAdmin" asp-for="@Model.IsAdmin" value="@Model.IsAdmin" name="IsAdmin" class="form-control">
                     <option value="1">True</option>
                     <option value="0">False</option>
                 </select>
             </div>
-            <div class="form-group col-sm-12 flex-column d-flex">
-                <button class="btn btn-outline-primary w-100">Submit</button>
+        </div>
+        <div class="form-group mt-3 row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-outline-primary w-100">Submit</button>
             </div>
         </div>
     </div>

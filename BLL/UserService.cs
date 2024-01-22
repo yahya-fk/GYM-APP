@@ -12,7 +12,7 @@ namespace BLL
     public class UserService
     {
         UserRepos userRepos = new UserRepos();
-        public UserListVM ReadNormal(int id) { 
+        public UserListVM GetUser(int id) { 
             var User = new UserListVM();
             var user = userRepos.Read(id);
             User.Id = id.ToString();

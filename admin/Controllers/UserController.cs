@@ -24,7 +24,7 @@ namespace admin.Controllers
         public IActionResult Edit(int id)
         {
             UserService userService = new UserService();
-            var user = userService.ReadNormal(id);
+            var user = userService.GetUser(id);
             return View(user);
         }
         [HttpPost]
@@ -35,7 +35,7 @@ namespace admin.Controllers
                 UserService userService = new UserService();
             userService.UserUpdate(user);
             int.TryParse(user.Id, out int userId);
-            user = userService.ReadNormal(userId);
+            user = userService.GetUser(userId);
             return View(user);
             }
             catch

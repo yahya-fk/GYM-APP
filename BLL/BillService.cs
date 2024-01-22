@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.Entity;
+using Models.User;
+using Models.Bill;
+using System.Data;
 
 namespace BLL
 {
@@ -56,6 +59,66 @@ namespace BLL
         {
             Bill bill = GetBillBySubId(SubId);
             return bill.BillDuration;
+        }
+        public List<BillListVM> GetAll()
+        {
+            List<BillListVM> list = new List<BillListVM>();
+            UserService userService = new UserService();
+            SubscriptionService subscription = new SubscriptionService();
+            foreach (var item in billRepos.GetAll())
+            {
+                Subscription sub=subscription.GetSub(item.SubId);
+                Models.User.UserListVM user=userService.GetUser(sub.UserId);
+                BillListVM obj = new BillListVM
+                {
+                    BillId = item.BillId,
+                    BillMethod = item.BillMethod,
+                    BillStatus = item.BillStatus,
+                    SubId = item.SubId,
+                    SubType = item.SubType,
+                    BillDuration = item.BillDuration,
+                    BillOwner = user.Nom + " "+user.Prenom
+                };
+                list.Add(obj);
+            }
+
+
+            return list;
+        }
+        public BillListVM GetBill(int id)
+        {
+            var Bill = billRepos.Read(id);
+            UserService userService = new UserService();
+            SubscriptionService subscription = new SubscriptionService();
+            Subscription sub = subscription.GetSub(Bill.SubId);
+            Models.User.UserListVM user = userService.GetUser(sub.UserId);
+            BillListVM obj = new BillListVM
+            {
+                BillId = Bill.BillId,
+                BillMethod = Bill.BillMethod,
+                BillStatus = Bill.BillStatus,
+                SubId = Bill.SubId,
+                SubType = Bill.SubType,
+                BillDuration = Bill.BillDuration,
+                BillOwner = user.Nom + " " + user.Prenom
+            };
+
+            return obj;
+        }
+        public void BillUpdate(int billId, string billMethod, string billStatus, int subId, string subType, int billDuration)
+        {
+            Bill bill = new Bill( billId,  billMethod,  billStatus,  subId,  subType,  billDuration);
+            billRepos.Update(bill);
+        }
+        public void BillDelete(int id)
+        {
+            billRepos.Delete(id);
+        }
+        public void BillUpdate(Models.Bill.BillListVM bill)
+        {
+
+            BillUpdate(bill.BillId, bill.BillMethod, bill.BillStatus, bill.SubId, bill.SubType, bill.BillDuration);
+
         }
     }
 }

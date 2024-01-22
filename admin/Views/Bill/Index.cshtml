@@ -1,0 +1,41 @@
+﻿@model List<Models.Bill.BillListVM>
+@{
+    ViewData["Title"] = "Bill List";
+}
+<div class="">
+    <h5>Add User :</h5>
+    <a class="btn btn-success" asp-action="create" asp-controller="User">Ajouter</a>
+</div>
+<div class="container mt-4">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>BillId</th>
+                <th>BillOwner</th>
+                <th>BillMethod</th>
+                <th>BillStatus</th>
+                <th>BillDuration</th>
+                <th>SubId</th>
+                <th>SubType</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.BillId</td>
+                    <td>@item.BillOwner</td>
+                    <td>@item.BillMethod</td>
+                    <td>@item.BillStatus</td>
+                    <td>@item.BillDuration</td>
+                    <td>@item.SubId</td>
+                    <td>@item.SubType</td>
+                    <td>
+                        <a class="btn btn-primary" asp-route-id="@item.BillId" asp-action="edit" asp-controller="Bill">Editer</a>
+                        <a class="btn btn-danger" asp-route-id="@item.BillId" asp-action="delete" asp-controller="BIll">Supprimer</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
