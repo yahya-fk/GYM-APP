@@ -8,6 +8,8 @@ using Models.Bill;
 using Models.User;
 using System.Data;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace GYM_APP.Controllers
 {
@@ -15,14 +17,17 @@ namespace GYM_APP.Controllers
 
     public class BillController : Controller
     {
+       
         SubscriptionService SubscriptionService = new SubscriptionService();
         BillService billService = new BillService();
         public IActionResult Index()
         {
+           
             return View();
         }
         public IActionResult BillAction(BillNewVM entity)
         {
+          
             if (entity == null)
             {
                 return RedirectToAction("Home", "User", new { index = "False" });
@@ -90,10 +95,11 @@ namespace GYM_APP.Controllers
         }
 
         public IActionResult DebitCard()
-        {            
+        {
             return View();
         }
         public IActionResult BillValidate() {
+           
             if (TempData.TryGetValue("SubID", out object index))
             {
 

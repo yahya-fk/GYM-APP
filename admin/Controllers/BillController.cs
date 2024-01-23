@@ -5,6 +5,7 @@ using Models.Bill;
 using Models.User;
 using System.Data;
 using System;
+using System.Security.Claims;
 
 namespace admin.Controllers
 {
@@ -15,7 +16,7 @@ namespace admin.Controllers
         BillService Billservice = new BillService();
         public IActionResult Index()
         {
-
+           
             return View(Billservice.GetAll());
         }
 

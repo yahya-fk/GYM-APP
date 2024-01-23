@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using BLL;
 using Models.User;
 using DAL.Entity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace admin.Controllers
 {
@@ -67,7 +69,11 @@ namespace admin.Controllers
         }
 
 
-       
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
+        }
 
 
         public ActionResult Delete(int id)

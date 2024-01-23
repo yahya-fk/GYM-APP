@@ -30,6 +30,10 @@ namespace GYM_APP.Controllers
         [HttpPost]
         public IActionResult Index(LoginVM model)
         {
+            ClaimsPrincipal claimUser = HttpContext.User;
+
+            if (claimUser.Identity.IsAuthenticated)
+                return RedirectToAction("Home", "User");
             UserService userService = new UserService();
             var us = userService.UserLogin(model);
 
@@ -68,6 +72,7 @@ namespace GYM_APP.Controllers
         [Authorize]
         public IActionResult Home(string index)
         {
+           
             ViewBag.Index = index;
             SubscriptionService subscriptionService = new SubscriptionService();
             UserListVM user=new UserListVM();
@@ -90,6 +95,7 @@ namespace GYM_APP.Controllers
         [Authorize]
         public IActionResult Logout()
         {
+           
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }

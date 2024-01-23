@@ -17,13 +17,14 @@ namespace admin.Controllers
 
         public IActionResult Index()
         {
-            SubscriptionService subscriptionService = new SubscriptionService();    
-            subscriptionService.CheckSubStatus();
-
             ClaimsPrincipal claimUser = HttpContext.User;
 
             if (claimUser.Identity.IsAuthenticated)
                 return RedirectToAction("Home", "User");
+            SubscriptionService subscriptionService = new SubscriptionService();    
+            subscriptionService.CheckSubStatus();
+
+           
             return View();
         }
 
