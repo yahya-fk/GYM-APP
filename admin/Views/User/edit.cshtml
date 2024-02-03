@@ -27,11 +27,19 @@
         <div class="form-group row">
             <label for="fname" class="col-sm-2 col-form-label">TEl<span class="text-danger"> *</span></label>
             <div class="col-sm-4">
-                <input type="text" id="fname" asp-for="@Model.Tel" value="@Model.Tel" required onblur="validate(1)" name="Prenom" class="form-control">
+                <input type="text" id="Tel" asp-for="@Model.Tel" value="@Model.Tel" required onblur="validate(1)" name="Tel" class="form-control">
             </div>
             <label for="lname" class="col-sm-2 col-form-label">IMG<span class="text-danger"> *</span></label>
             <div class="col-sm-4">
-                <input type="text" id="lname" asp-for="@Model.Img" value="@Model.Img" required onblur="validate(2)" name="Nom" class="form-control">
+                <select id="Img" asp-for="@Model.Img" value="@Model.Img" required class="form-control">
+                    <option value="/img/profile/default.png">Default</option>
+                    <option value="/img/profile/Tom.png">Tom</option>
+                    <option value="/img/profile/Megumi.png">Megumi</option>
+                    <option value="/img/profile/Girl.png">Girl</option>
+                    <option value="/img/profile/Yagami.png">Yagami light</option>
+                    <option value="/img/profile/Bear.png">Bear</option>
+                    <option value="/img/profile/Cat.png">Cat</option>
+                </select>
             </div>
         </div>
         <hr />

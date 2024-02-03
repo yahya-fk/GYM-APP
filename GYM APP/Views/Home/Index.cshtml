@@ -146,6 +146,9 @@
                 <h5 class="text-center mb-4">do wanna be strongger</h5>
                 <form class="form-card" asp-action="SignUp" asp-controller="User" method="post">
                     <div class="row justify-content-between text-left">
+                        <div class="row justify-content-center w-100">
+                            <img src="/img/profile/default.png" id="imgProfile" style="height: 130px; width :150px; ; border-radius:100%" />
+                        </div>
                         <div class="form-group col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3">First name<span class="text-danger"> *</span></label>
                             <input type="text" id="fname" asp-for="@Model.Nom" placeholder="Enter your first name" required onblur="validate(1)">
@@ -172,7 +175,19 @@
                             <label class="form-control-label px-3">Phone number<span class="text-danger"> *</span></label>
                         <input type="text" id="mob" asp-for="@Model.Tel" placeholder="Your phone number" required onblur="validate(4)">
                         </div>
-                    
+                    <div class="form-group col-sm-12 flex-column d-flex">
+                        <label class="form-control-label px-3">IMG<span class="text-danger"> *</span></label>
+                        <select id="Img" asp-for="@Model.Img" required class="form-control">
+                            <option value="/img/profile/default.png">Default</option>
+                            <option value="/img/profile/Tom.png">Tom</option>
+                            <option value="/img/profile/Megumi.png">Megumi</option>
+                            <option value="/img/profile/Girl.png">Girl</option>
+                            <option value="/img/profile/Yagami.png">Yagami light</option>
+                            <option value="/img/profile/bear.png">Bear</option>
+                            <option value="/img/profile/cat.png">Cat</option>
+                        </select>
+                    </div>
+                   
 
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-12 flex-column d-flex">
@@ -218,6 +233,15 @@
             } else {
                 price.innerHTML = "<option value=''>Choose a Subscription</option>";
             }
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        let imgSelect = document.getElementById("Img");
+        let profileImg = document.getElementById("imgProfile");
+
+        imgSelect.addEventListener("change", function () {
+            let selectedImg = imgSelect.value;
+            profileImg.src = selectedImg;
         });
     });
 </script>

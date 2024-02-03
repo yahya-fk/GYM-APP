@@ -1,0 +1,103 @@
+﻿@model Models.User.UserEditVM
+@{
+    ViewData["Title"] = "info User";
+    Layout = null;
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/admin.styles.css" asp-append-version="true" />
+</head>
+<body >
+<div class="container text-center justify-content-center ">
+       <div class="m-auto w-75">
+            <form method="post" class="card shadow-sm m-5" asp-action="Edit">
+                <div class="row justify-content-center w-100">
+                    <img id="imgProfile" src="@Model.Img" style="height: 130px; width :150px; ; border-radius:100%" />
+                </div>
+                <div class="container">
+                    <div class="text-center mb-2">
+                        <h3>Update User :</h3>
+                    </div>
+                    <div class="form-group row">
+                        <label for="userId" class="col-sm-2 col-form-label">User ID:</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="userId" asp-for="@Model.Id" value="@Model.Id" readonly onblur="validate(3)" name="Id" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fname" class="col-sm-2 col-form-label">First Name<span class="text-danger"> *</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="fname" asp-for="@Model.Prenom" value="@Model.Prenom" readonly onblur="validate(1)" name="Prenom" class="form-control">
+                        </div>
+                        <label for="lname" class="col-sm-2 col-form-label">Last Name<span class="text-danger"> *</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="lname" asp-for="@Model.Nom" value="@Model.Nom" readonly onblur="validate(2)" name="Nom" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="fname" class="col-sm-2 col-form-label">TEl<span class="text-danger"> *</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="Tel" asp-for="@Model.Tel" value="@Model.Tel" required onblur="validate(1)" name="Tel" class="form-control">
+                        </div>
+                        <label for="lname" class="col-sm-2 col-form-label">IMG<span class="text-danger"> *</span></label>
+                        <div class="col-sm-4">
+                            <select id="Img" asp-for="@Model.Img" value="@Model.Img" required class="form-control">
+                                <option value="/img/profile/default.png">Default</option>
+                                <option value="/img/profile/Tom.png">Tom</option>
+                                <option value="/img/profile/Megumi.png">Megumi</option>
+                                <option value="/img/profile/Girl.png">Girl</option>
+                                <option value="/img/profile/Yagami.png">Yagami light</option>
+                                <option value="/img/profile/Bear.png">Bear</option>
+                                <option value="/img/profile/Cat.png">Cat</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <h6>Authentication Credentials</h6>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-2 col-form-label">Email<span class="text-danger"> *</span></label>
+                        <div class="col-sm-4">
+                            <input type="email" id="email" asp-for="@Model.Email" value="@Model.Email" required onblur="validate(3)" name="Email" class="form-control">
+                        </div>
+                        <label for="passwd" class="col-sm-2 col-form-label">Password<span class="text-danger"> *</span></label>
+                        <div class="col-sm-4">
+                            <input type="text" id="passwd" asp-for="@Model.MotDePasse" value="@Model.MotDePasse" required onblur="validate(3)" name="MotDePasse" class="form-control">
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group mt-3 row">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-outline-primary mb-2 w-100">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+       </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let imgSelect = document.getElementById("Img");
+            let profileImg = document.getElementById("imgProfile");
+
+        imgSelect.addEventListener("change", function () {
+            let selectedImg = imgSelect.value;
+            profileImg.src = selectedImg;
+        });
+    });
+</script>
+</body>
+</html>

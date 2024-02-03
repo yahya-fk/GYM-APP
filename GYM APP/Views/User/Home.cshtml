@@ -3,7 +3,7 @@
     ViewData["Title"] = "User Home";
     Layout = null;
     string index = ViewBag.Index ?? "";
-
+    var img = @Model.SubType + ".png";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +35,12 @@
             <p class="text-success">your bill is Submited waiting For u to pay ;)</p>
         </div>
     }
+    @if (index == "Edited")
+    {
+        <div class=" text-center">
+            <p class="text-success">your data has been edited log out To see changes ;)</p>
+        </div>
+    }
     <section style="height:100vh;" class=" h-100 gradient-custom-2">
             <div class="container w-100 h-100"> 
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -42,22 +48,30 @@
                         <div class="card">
                             <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
                                 <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                                    <img src="@Model.Img"
                                          alt="Generic placeholder image" class="img-fluid r-5 img-thumbnail mt-4 mb-2"
                                          style="width: 150px; z-index: 1">
-                                <a asp-action="Logout" asp-controller="User">
-                                    <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
-                                            style="z-index: 1;">
-                                        Log out
-                                    </button>
-                                </a>
+                               
+
                                 </div>
                                 <div class="ms-3" style="margin-top: 130px;">
                                     <h5>@Model.Nom @Model.Prenom</h5>
                                 </div>
                             </div>
-                          
-                            <div class="card-body mt-5 p-4 text-black">
+                        <div class="row mx-2 mt-5 pt-4 d-flex">
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="col-auto text-decoration-none" asp-controller="User">
+                                <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark">
+                                    My Info
+                                </button>
+                            </a>
+                            <a asp-action="Logout" class="col-auto text-decoration-none" asp-controller="User">
+                                <button type="button" class="btn btn-outline-danger">
+                                    Log out
+                                </button>
+                            </a>
+                        </div>
+                            <div class="card-body  text-black">
+                           
                                 <div class="mb-5">
                                     <p class="lead fw-normal mb-1">About</p>
                                     <div class="p-4" style="background-color: #f8f9fa;">
@@ -71,7 +85,7 @@
                                 </div>
                                 <div class="row g-2">
                                     <div class="col mb-2">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                                    <img src="/img/Sub/@img"
                                              alt="image 1" class="w-100 rounded-3">
                                     </div>
                                     <div class="col mb-2">

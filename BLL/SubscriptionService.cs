@@ -62,6 +62,11 @@ namespace BLL
             Subscription subscription= subscriptionRepos.ReadbyUserId(userID);
             return subscription.SubStatus;
         }
+        public string GetSubTypeByUserId(int userID)
+        {
+            Subscription subscription = subscriptionRepos.ReadbyUserId(userID);
+            return subscription.SubType;
+        }
         public Subscription GetSub(int SubID)
         {
             return subscriptionRepos.Read(SubID);
@@ -85,15 +90,8 @@ namespace BLL
         {
             Subscription subscription = new Subscription(subId, userId, subStatus, subType, subDate, subExpiredDate);
             Subscription oldSubscription=GetSub(subId);
-            if(oldSubscription.SubType == subscription.SubType && oldSubscription!=null)
-            {
                 subscriptionRepos.Update(subscription);
                 CheckSubStatus();
-            }
-            else
-            {
-                SubAdd(subscription);
-            }
         }
         public void SubUpdate(Subscription subscription,int Duration)
         {

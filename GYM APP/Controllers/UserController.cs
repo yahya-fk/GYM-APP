@@ -87,6 +87,7 @@ namespace GYM_APP.Controllers
                 user.Email = User.FindFirst(ClaimTypes.Email).Value;
                 user.Tel = User.FindFirst(ClaimTypes.MobilePhone).Value;
                 user.Img = User.FindFirst(ClaimTypes.Anonymous).Value;
+                user.SubType = subscriptionService.GetSubTypeByUserId(userId);
                 user.SubStatus = subscriptionService.GetSubStatsByUserId(userId);
                 user.SubExpiredDate=subscriptionService.GetSubExpireDateByUserId(userId).ToString("dd MMMM yyyy");
             }
@@ -99,7 +100,39 @@ namespace GYM_APP.Controllers
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            UserService userService = new UserService();
+            var user = userService.GetUser(id);
+            UserEditVM userEdit = new UserEditVM(user);
+            return View(userEdit);
+        }
+        [HttpPost]
+        [Authorize]
 
+        public IActionResult Edit(UserEditVM user)
+        {
+            try
+            {
+                UserService userService = new UserService();
+                var userList = userService.GetUser(user.Id);
+                userList.Tel = user.Tel;
+                userList.Img = user.Img;
+                userList.Email= user.Email;
+                userList.MotDePasse = user.MotDePasse;
+                userService.UserUpdate(userList);
+                int.TryParse(userList.Id, out int userId);
+                userList = userService.GetUser(userId);
+                user = new UserEditVM(userList);
+                return RedirectToAction("Home", new { index = "Edited" });
+            }
+            catch
+            {
+                return RedirectToAction("Home");
+
+            }
+        }
         public IActionResult SignUp(UserNewVM model) {
             if (model != null && userService.CheckEmail(model.Email)) {
                 int numberOfDaysToAdd = 0;
@@ -116,7 +149,7 @@ namespace GYM_APP.Controllers
                     numberOfDaysToAdd = 12;
                 }
                 DateTime newDate = DateTime.Now.AddMonths(numberOfDaysToAdd);
-                userService.UserAdd(0, 0, model.Nom, model.Prenom, model.Email, model.Tel, model.Img, model.MotDePasse);
+                userService.UserAdd(0, 0, model.Nom, model.Prenom, model.Email, model.Tel, "~/img/profile/Default.png", model.MotDePasse);
                 SubscriptionService.SubAdd(userService.GetUserIdByEmail(model.Email), "Waiting For Paiement", model.SubType, DateTime.Now, newDate);
                 return RedirectToAction("", "Home", new { index = "True" });
             }
