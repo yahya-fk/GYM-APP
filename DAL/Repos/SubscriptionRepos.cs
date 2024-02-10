@@ -51,7 +51,7 @@ namespace DAL.Repos
         {
             using (MyDbContext myDbContext = new MyDbContext())
             {
-                return myDbContext.Subscriptions.Where(u => u.UserId == UserId && ( u.SubStatus == "active"))
+                return myDbContext.Subscriptions.Where(u => u.UserId == UserId )
                            .OrderByDescending(u => u.SubExpiredDate)
                            .FirstOrDefault();
             }

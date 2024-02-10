@@ -16,5 +16,7 @@ namespace Models.Bill
         public string SubType { get; set; } = string.Empty;
         public int BillDuration { get; set; } = 0;
         public string BillOwner { get; set; }
+
+
     }
 }
