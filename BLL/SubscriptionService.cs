@@ -18,11 +18,10 @@ namespace BLL
 
         public void SubAdd(int subId,int userId, string subStatus, string subType, DateTime subDate, DateTime subExpiredDate)
         {
-            if (subscriptionRepos.ReadByUserAndSub(userId) == null)
-            {
+
                 Subscription subscription = new Subscription(subId, userId, subStatus, subType, subDate, subExpiredDate);
                 subscriptionRepos.Create(subscription);
-            }
+
         }
         public void SubAdd(Subscription sub)
         {
@@ -33,8 +32,7 @@ namespace BLL
         }
         public void SubAdd(int userId, string subStatus, string subType, DateTime subDate, DateTime subExpiredDate)
         {
-            if (subscriptionRepos.ReadByUserAndSub(userId) == null)
-            {
+            
                 DateTime currentDate = DateTime.Now;
                 int year = currentDate.Year % 100;
                 int month = currentDate.Month;
@@ -46,7 +44,7 @@ namespace BLL
                 Console.WriteLine(SubID);
 
                 SubAdd(SubID, userId, subStatus, subType, subDate, subExpiredDate);
-            }
+
         }
 
         public void CheckSubStatus()
@@ -56,6 +54,10 @@ namespace BLL
         public Subscription GetSubscriptionByUserId(int userID)
         {
             return subscriptionRepos.ReadbyUserId(userID);
+        }
+        public Subscription GetSubscriptionByUserId2(int userID)
+        {
+            return subscriptionRepos.ReadbyUserId2(userID);
         }
         public string GetSubStatsByUserId(int userID)
         {
@@ -86,6 +88,7 @@ namespace BLL
             else { return true; }
 
         }
+        
         public void SubUpdate(int subId,int userId, string subStatus, string subType, DateTime subDate, DateTime subExpiredDate)
         {
             Subscription subscription = new Subscription(subId, userId, subStatus, subType, subDate, subExpiredDate);

@@ -25,73 +25,147 @@ namespace GYM_APP.Controllers
            
             return View();
         }
+        /* public IActionResult BillAction(BillNewVM entity)
+         {
+
+             if (entity == null)
+             {
+                 return RedirectToAction("Home", "User", new { index = "False" });
+             }
+             else
+             {
+                 var claims = User.Claims;
+                 var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+                 int.TryParse(userIdClaim.Value, out int userId);
+                 BillListVM bill = new BillListVM();
+                 int numberOfDaysToAdd = 0;
+
+                 if (entity.BillDuration == "Month")
+                 {
+                     numberOfDaysToAdd = 1;
+                 }
+                 if (entity.BillDuration == "6Months")
+                 {
+                     numberOfDaysToAdd = 6;
+                 }
+                 if (entity.BillDuration == "Year")
+                 {
+                     numberOfDaysToAdd = 12;
+                 }
+                 DateTime newDate = DateTime.Now.AddMonths(numberOfDaysToAdd);
+                 if (SubscriptionService.CheckUserSub(userId))
+                 {
+                     var subState = SubscriptionService.GetSubStatsByUserId(userId);
+                     if (subState == "Expired")
+                     {
+                         SubscriptionService.SubAdd(userId, "Waiting For Paiement", entity.SubType, DateTime.Now, newDate);
+
+                     }
+                     if (subState == "Active")
+                     {
+                         var ExpDate = SubscriptionService.GetSubExpireDateByUserId(userId);
+                         SubscriptionService.SubAdd(userId, "Waiting For Paiement", entity.SubType, ExpDate, ExpDate.AddMonths(numberOfDaysToAdd));
+                     }
+                     if (subState == "Waiting For Paiement")
+                     {
+                         return RedirectToAction("Home", "User", new { index = "False" });
+                     }
+                     else
+                     {
+                         return RedirectToAction("Home", "User", new { index = "False" });
+
+                     }
+                     var Sub = SubscriptionService.GetSubscriptionByUserId(userId);
+                     if (entity.BillMethod == "Debit Card" && Sub.SubId != null)
+                     {
+                         billService.BillAdd(entity.BillMethod, "Waiting For Paiement", Sub.SubId, entity.SubType, numberOfDaysToAdd);
+                         TempData["SubID"] = Sub.SubId;
+                         return RedirectToAction("DebitCard");
+
+
+                     }
+                     if (entity.BillMethod == "Cash" && Sub.SubId != null)
+                     {
+                         int BillId = billService.BillAdd(entity.BillMethod, "Waiting For Paiement", Sub.SubId, entity.SubType, numberOfDaysToAdd);
+                         return RedirectToAction("Home", "User", new { index = "Cash" });
+
+                     }
+                     else
+                     {
+                         return RedirectToAction("Home", "User", new { index = "False" });
+
+                     }
+
+                 }
+
+             }
+         }*/
+
         public IActionResult BillAction(BillNewVM entity)
         {
-          
             if (entity == null)
             {
                 return RedirectToAction("Home", "User", new { index = "False" });
             }
             else
             {
-                var claims = User.Claims;
                 var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-                int.TryParse(userIdClaim.Value, out int userId);
-                BillListVM bill = new BillListVM();
-                if (userIdClaim != null)
+                if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
                 {
-                   // bill.email = User.FindFirst(ClaimTypes.Email).Value;
-                   // bill.name= User.FindFirst(ClaimTypes.Name).Value+" "+ User.FindFirst(ClaimTypes.GivenName).Value;
-                   // bill.Tel = User.FindFirst(ClaimTypes.MobilePhone).Value;
+                    // Handle the case where user ID claim is not found or not valid
+                    return RedirectToAction("Home", "User", new { index = "False" });
                 }
-                int numberOfDaysToAdd = 0;
 
+                int numberOfDaysToAdd = 0;
                 if (entity.BillDuration == "Month")
                 {
                     numberOfDaysToAdd = 1;
                 }
-                if (entity.BillDuration == "6Months")
+                else if (entity.BillDuration == "6Months")
                 {
                     numberOfDaysToAdd = 6;
                 }
-                if (entity.BillDuration == "Year")
+                else if (entity.BillDuration == "Year")
                 {
                     numberOfDaysToAdd = 12;
                 }
+
                 DateTime newDate = DateTime.Now.AddMonths(numberOfDaysToAdd);
                 if (SubscriptionService.CheckUserSub(userId))
                 {
-                    SubscriptionService.SubAdd(userId, "Waiting For Paiement", entity.SubType, DateTime.Now, newDate);
+                   
+                    var subState = SubscriptionService.GetSubStatsByUserId(userId);
+                    if (subState == "Expired" && SubscriptionService.GetSubTypeByUserId(userId)!=entity.SubType)
+                    {
+                        SubscriptionService.SubAdd(userId, "Waiting For Payment", entity.SubType, DateTime.Now, newDate);
+                    }
+                    else if (subState == "Active" && SubscriptionService.GetSubTypeByUserId(userId) != entity.SubType)
+                    {
+                        var ExpDate = SubscriptionService.GetSubExpireDateByUserId(userId);
+                        SubscriptionService.SubAdd(userId, "Waiting For Payment", entity.SubType, ExpDate, ExpDate.AddMonths(numberOfDaysToAdd));
+                    }
+                    else if (subState == "Waiting For Payment" )
+                    {
+                        return RedirectToAction("Home", "User", new { index = "False" });
+                    }
+
+                    var Sub = SubscriptionService.GetSubscriptionByUserId2(userId);
+                    if (entity.BillMethod == "Debit Card" && Sub?.SubId != null)
+                    {
+                        billService.BillAdd(entity.BillMethod, "Waiting For Payment", Sub.SubId, entity.SubType, numberOfDaysToAdd);
+                        TempData["SubID"] = Sub.SubId;
+                        return RedirectToAction("DebitCard");
+                    }
+                    else if (entity.BillMethod == "Cash" && Sub?.SubId != null)
+                    {
+                        int BillId = billService.BillAdd(entity.BillMethod, "Waiting For Payment", Sub.SubId, entity.SubType, numberOfDaysToAdd);
+                        return RedirectToAction("Home", "User", new { index = "Cash" });
+                    }
                 }
-                else
-                {
-                    return RedirectToAction("Home", "User", new { index = "SubExiste" });
 
-                }
-                var Sub = SubscriptionService.GetSubscriptionByUserId(userId);
-                if (entity.BillMethod== "Debit Card" && Sub.SubId != null)
-                {
-                    billService.BillAdd(entity.BillMethod, "Waiting For Paiement", Sub.SubId, entity.SubType, numberOfDaysToAdd);
-                    TempData["SubID"] = Sub.SubId;
-                    return RedirectToAction("DebitCard");
-
-
-                }
-                if (entity.BillMethod == "Cash" && Sub.SubId != null)
-                {
-                    int BillId=billService.BillAdd(entity.BillMethod, "Waiting For Paiement", Sub.SubId, entity.SubType, numberOfDaysToAdd);
-                    return RedirectToAction("Home", "User", new { index = "Cash" });
-
-                }
-
-                else
-                        {
-                    return RedirectToAction("Home", "User", new { index = "False" });
-
-                }
-
+                // Default fallback if none of the conditions are met
+                return RedirectToAction("Home", "User", new { index = "False" });
             }
-
         }
 
         public IActionResult DebitCard()
@@ -99,6 +173,7 @@ namespace GYM_APP.Controllers
             return View();
         }
         public IActionResult BillValidate() {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
            
             if (TempData.TryGetValue("SubID", out object index))
             {
