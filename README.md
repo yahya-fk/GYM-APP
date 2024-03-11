@@ -6,11 +6,26 @@ Ce projet est une application web développée en utilisant ASP.NET pour la gest
 
 1. **Authentification :** L'application offre un système d'authentification pour permettre aux utilisateurs de se connecter en tant que client ou administrateur.
 
+![Capture d'écran 2024-03-11 202542](https://github.com/yahya-fk/GYM-APP/assets/102445353/be55f9d8-a12d-4428-9cad-35c601b7d723)
+
 2. **Gestion des Clients :** Une fonctionnalité permet aux administrateurs de gérer les données des clients, y compris leurs informations personnelles, leurs abonnements et leurs paiements.
+
+![Capture d'écran 2024-03-11 203953](https://github.com/yahya-fk/GYM-APP/assets/102445353/d59160b3-a0f7-4c73-968f-10be97ece241)
+
 
 3. **Gestion des Abonnements :** Les utilisateurs peuvent consulter les détails de leur abonnement actuel, y compris la date d'expiration, et effectuer des actions telles que le renouvellement ou la mise à jour de leur abonnement.
 
+![Profile](https://github.com/yahya-fk/GYM-APP/assets/102445353/fe643859-7457-4e62-bf8e-c15980919998)
+
+
 4. **Administration :** Les administrateurs ont accès à des fonctionnalités supplémentaires pour gérer les données des clients, suivre les abonnements et effectuer des opérations de maintenance.
+
+![Capture d'écran 2024-03-11 203928](https://github.com/yahya-fk/GYM-APP/assets/102445353/de0d19f9-7387-4fd3-97aa-bceca628c65d)
+
+5. **Main Page :**
+
+![home index](https://github.com/yahya-fk/GYM-APP/assets/102445353/ba9b9010-9392-4f46-a147-8a676bffa4ef)
+
 
 ### Technologies Utilisées
 
